@@ -1,5 +1,15 @@
 language: android
 
+before_cache:
+ - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+ - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+ directories:
+ - $HOME/.gradle/caches/
+ - $HOME/.gradle/wrapper/
+
+
 android:
   components:
     - build-tools-25.0.0
@@ -16,7 +26,7 @@ script:
   - ./gradlew assembleRelease
 
 before_deploy:
-  - ls app/build/outputs/apk/apk/
+  - ls app/build/outputs/apk/
 
 deploy:
   provider: releases
@@ -25,4 +35,4 @@ deploy:
   file: app/build/outputs/apk/app-debug.apk
   skip_cleanup: true
   on:
-    tags: true
+      #tags: true
