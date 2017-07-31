@@ -10,6 +10,12 @@ cache:
  - $HOME/.gradle/wrapper/
 
 
+env:
+  global:
+    # 定义全局变量： GITHUB_TOKEN
+    secure: "Ke3ggv0KooHO+K8yic4kanN21ZXUTxIDQlVgQ7Fj8wp3LOCB0xW+fq1mDxVIFdVFAq34xDqcjASt0ktjEy+n4l29NRr1nAGKf+ADCxIMvgJpyrFNXSa8kZ6zRzTpozeJjplGyLA/Eh7vk0RJOX4vK0pdHZGDr0WqHCyC2N3NjZafKz2pgsbM3Bpgx9j68nMTlUJ24ROb8SFbvbRDJU2cL7vK23Lq6UHJVSqdbLooUJoUC8v0MDKkWX8kJ8KJnJEptgT1dgJ5HmWmAasRNTGB42eAVUG/6UgKjZdtPJOqldmdb3JG3GBT+stNyuyedv+ax+BjDDMzadI+aIwJzwZnV5xSkEE+u5rBb3MalBimlZA0t/ZX0uI3H3XEGV5HzQN6W2K8a3nKNoP+XBtB9PCcBdhsWloGPO8x93exKEJU3YOr74uiXvxoEwvXnGvOXWN04xF8fAzSCBcz/hJqrV0jceBahNBmkCXGV4imRQT07O20ywp9e4bmLn6q8NerjkdJhLbrwnBex2cWe02/R49624V1YG3YMEGereB4C6FsH8A4Qx97+mHObckzXdim2RTJ8Pkqqwe/EOKlw9HIKqLoAP/ObFLOKGIrWACslSZpiaR3/o0h3vn0bQPpfXGfG2MRXGFNl27wrxWMFpcwfCjN6JKwOyAPAe8tkefaAadEguY="
+
+
 android:
   components:
     - build-tools-25.0.0
@@ -27,11 +33,10 @@ script:
 
 before_deploy:
   - ls app/build/outputs/apk/
+  - composer config --global github-oauth.github.com ${GITHUB_TOKEN}
 
 deploy:
   provider: releases
-  api_key:
-    secure: ${GH_TOKEN}
   file: app/build/outputs/apk/app-release-unsigned.apk
   skip_cleanup: true
   on:
