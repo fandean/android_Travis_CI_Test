@@ -35,11 +35,12 @@ script:
 
 before_deploy:
   - ls app/build/outputs/apk/
+  - mv app/build/outputs/apk/app-release-unsigned.apk app/build/outputs/apk/app-release.apk || true
   - composer config --global github-oauth.github.com ${GITHUB_TOKEN}
 
 deploy:
   provider: releases
-  file: app/build/outputs/apk/app-release-unsigned.apk
+  file: app/build/outputs/apk/app-release.apk
   skip_cleanup: true
   on:
     tags: true
