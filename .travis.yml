@@ -33,10 +33,6 @@ before_install:
 script:
   - ./gradlew assembleRelease
 
-before_deploy:
-  - ls app/build/outputs/apk/
-  - mv app/build/outputs/apk/app-release-unsigned.apk app/build/outputs/apk/app-release.apk || true
-  - composer config --global github-oauth.github.com ${GITHUB_TOKEN}
 
 deploy:
   provider: releases
@@ -44,3 +40,5 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+  api_key:
+    secure: ${GITHUB_TOKEN}
